@@ -15,14 +15,13 @@ defmodule W3wElixirDemo do
     |> translate
   end
 
+  # Private implementation
+  ########################
+
   defp get_countries(:all), do: HTTPoison.get!(@restcountries_base <> "all")
   defp get_countries(iso),  do: HTTPoison.get!(@restcountries_base <> "alpha/" <> iso)
 
-  defp decode_body(%{body: body}), do:
-    Poison.decode!(body)
-
-  defp get_latlng(%{"latlng" => latlng}), do:
-    latlng |> List.to_tuple
+  defp decode_body(%{body: body}), do: Poison.decode!(body)
 
   defp async_translate(countries) do
     countries
@@ -35,6 +34,8 @@ defmodule W3wElixirDemo do
     words = country |> get_latlng |> get_words
     {country["name"], words}
   end
+
+  defp get_latlng(%{"latlng" => latlng}), do: latlng |> List.to_tuple
 
   defp get_words({_lat, _lng} = coords), do: What3Words.position_to_words!(coords)
   defp get_words({}),                    do: nil
