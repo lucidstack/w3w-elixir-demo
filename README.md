@@ -19,6 +19,12 @@ have any reason for that!). In your `mix.exs` file:
   end
 ```
 
+Before starting your console/app, remember to insert your api key in the
+`config.exs` file:
+```
+config :what3words, key: "yourapikeyhere"
+```
+
 # Usage
 
 Just a couple of methods of example: `W3wElixirDemo.w3w_for_country/1` and `W3wElixirDemo.w3w_for_all_countries/0`
@@ -27,6 +33,7 @@ Just a couple of methods of example: `W3wElixirDemo.w3w_for_country/1` and `W3wE
 
 Retrieves the 3 words locating the centre of the given country. The coordinates are taken from restcountries.eu, and translated through the what3words API.
 ```
+$ iex -S mix
 ex(1)> W3wElixirDemo.w3w_for_country("gb")
 {"United Kingdom", {"blank", "then", "ridiculed"}}
 ```
@@ -36,6 +43,7 @@ ex(1)> W3wElixirDemo.w3w_for_country("gb")
 Retrieves all countries from restcountries.eu, and finds the 3 words for each one of them, in parallel. This also showcases a little bit the power of `Task.async/1` and `Task.await/1`.
 
 ```
+$ iex -S mix
 iex(1)> W3wElixirDemo.w3w_for_all_countries
 %{"Comoros" => {"scrapped", "gears", "eyelashes"},
   "Montserrat" => {"trendier", "tingle", "softer"},
